@@ -1,4 +1,4 @@
-defmodule Mnesiac.ExampleStore do
+defmodule Mnesiac.Support.ExampleStore do
   @moduledoc false
   require Record
 
