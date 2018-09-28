@@ -5,7 +5,7 @@ elixir:
   - 1.7.3
 otp_release:
   - 21.0
-  - 21.0.7
+  - 21.1
 script:
   - "MIX_ENV=test mix deps.get --force"
   - "MIX_ENV=test mix deps.compile --force"
