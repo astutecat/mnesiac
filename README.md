@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/beardedeagle/mnesiac.svg?branch=master)](https://travis-ci.org/beardedeagle/mnesiac) [![codecov](https://codecov.io/gh/beardedeagle/mnesiac/branch/master/graph/badge.svg)](https://codecov.io/gh/beardedeagle/mnesiac) [![Hex.pm](http://img.shields.io/hexpm/v/mnesiac.svg?style=flat)](https://hex.pm/packages/mnesiac) [![Hex.pm downloads](https://img.shields.io/hexpm/dt/mnesiac.svg?style=flat)](https://hex.pm/packages/mnesiac)
 
-mnesia autoclustering made easy!
+Mnesia autoclustering made easy!
 
 Docs can be found at [https://hexdocs.pm/mnesiac](https://hexdocs.pm/mnesiac).
 
@@ -127,16 +127,21 @@ If you are not using `libcluster` or similar clustering library then:
 
 ## Development
 
-Run the following:
+Ensure you have the proper language versions installed. To do this, an `asdf` tools file is provided. Run the following:
 
 ```shell
 git clone https://github.com/beardedeagle/mnesiac.git
 git checkout -b MyFeature
+asdf install
+mix local.hex --force
+mix local.rebar --force
 mix deps.get --force
 mix deps.compile --force
 mix compile --force
 mix check
 ```
+
+**_NOTICE:_** You can find the `asdf` tool [here][1].
 
 ## Testing
 
@@ -156,4 +161,6 @@ mix coveralls.html --trace --slowest 10 --no-start
 
 This library was built standing on the shoulders of giants. A big thanks goes out to Mustafa Turan. The original library this was forked from can be found here: <https://github.com/mustafaturan/mnesiam>.
 
-Enjoy!
+Happy coding!
+
+[1]: https://github.com/asdf-vm/asdf

@@ -5,10 +5,24 @@ elixir:
   - 1.7.3
 otp_release:
   - 21.0
-  - 21.1
-script:
+  - 21.1.1
+env:
+  - "PLT_DIR=$HOME/.plt"
+cache:
+  directories:
+    - _build
+    - deps
+    - $PLT_DIR
+before_script:
+  - "mkdir -p $PLT_DIR"
+  - "mix deps.get --force"
+  - "mix deps.compile --force"
+  - "mix compile --force"
+  - "mix dialyzer --plt"
   - "MIX_ENV=test mix deps.get --force"
   - "MIX_ENV=test mix deps.compile --force"
+script:
+  - "mix credo --strict --all"
   - "MIX_ENV=test mix compile --force --warnings-as-errors"
   - "MIX_ENV=test mix format --check-formatted --dry-run"
   - "MIX_ENV=test mix coveralls.json --no-start"
