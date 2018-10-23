@@ -23,11 +23,11 @@ defmodule Mnesiac.Support.ExampleStore do
       ExampleStore,
       attributes: example() |> example() |> Keyword.keys(),
       index: [:topic_id],
-      disc_copies: [Node.self()]
+      disc_copies: [node()]
     )
   end
 
   def copy_store do
-    :mnesia.add_table_copy(ExampleStore, Node.self(), :disc_copies)
+    :mnesia.add_table_copy(ExampleStore, node(), :disc_copies)
   end
 end

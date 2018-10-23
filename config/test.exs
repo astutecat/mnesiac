@@ -1,6 +1,7 @@
 use Mix.Config
 
-config :mnesia, dir: to_charlist(Path.join(File.cwd!(), List.first(String.split(to_string(Node.self()), "@"))))
+config :mnesia,
+  dir: to_charlist(Path.join(File.cwd!(), to_string(node())))
 
 config :mnesiac,
   stores: [Mnesiac.Support.ExampleStore],

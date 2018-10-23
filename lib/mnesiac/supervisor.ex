@@ -13,9 +13,9 @@ defmodule Mnesiac.Supervisor do
 
   @impl true
   def init([config, opts]) do
-    Logger.info(fn -> "[mnesiac:#{Node.self()}] mnesiac starting..." end)
+    Logger.info(fn -> "[mnesiac:#{node()}] mnesiac starting..." end)
     Mnesiac.init_mnesia(config)
-    Logger.info(fn -> "[mnesiac:#{Node.self()}] mnesiac started" end)
+    Logger.info(fn -> "[mnesiac:#{node()}] mnesiac started" end)
 
     opts = Keyword.put(opts, :strategy, :one_for_one)
     Supervisor.init([], opts)

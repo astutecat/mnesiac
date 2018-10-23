@@ -77,7 +77,7 @@ defmodule Mnesiac.MixProject do
     if Mix.env() in [:dev, :test] do
       Mix.shell().cmd("rm -rf ./test0* Mnesia.nonode@nohost")
     else
-      Logger.info(fn -> "[mnesiac:#{Node.self()}] purge.db can only be used in dev and test env" end)
+      Logger.info(fn -> "[mnesiac:#{node()}] purge.db can only be used in dev and test env" end)
     end
   end
 end

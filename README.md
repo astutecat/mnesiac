@@ -27,9 +27,9 @@ config :mnesiac,
   table_load_timeout: 600_000 # milliseconds, default is 600_000
 ```
 
-And then add `mnesiac` to your supervision tree:
+Then add `mnesiac` to your supervision tree:
 
-With `libcluster`:
+With `libcluster` using the `Cluster.Strategy.Epmd` strategy:
 
 ```elixir
   ...
@@ -102,7 +102,7 @@ defmodule MyApp.ExampleStore do
       ExampleStore,
       attributes: example() |> example() |> Keyword.keys(),
       index: [:topic_id],
-      disc_copies: [Node.self()]
+      disc_copies: [node()]
     )
   end
 
@@ -110,7 +110,7 @@ defmodule MyApp.ExampleStore do
   Mnesiac will call this method to copy the table
   """
   def copy_store do
-    :mnesia.add_table_copy(ExampleStore, Node.self(), :disc_copies)
+    :mnesia.add_table_copy(ExampleStore, node(), :disc_copies)
   end
 
   ...

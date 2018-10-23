@@ -78,7 +78,7 @@ defmodule Mnesiac.Store do
   Delete schema
   """
   def delete_schema do
-    :mnesia.delete_schema([Node.self()])
+    :mnesia.delete_schema([node()])
   end
 
   @doc """

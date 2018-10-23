@@ -70,12 +70,11 @@ defmodule MnesiacTest do
   scenario "single node test with mnesiac supervisor/1", @single_unnamed_opts do
     node_setup do
       {:ok, _pid} = Mnesiac.Supervisor.start_link([[node()]])
+      :ok = :mnesia.wait_for_tables([ExampleStore], 5_000)
     end
 
     test "tables exist", %{cluster: cluster} do
       [node_a] = Cluster.members(cluster)
-
-      Cluster.call(node_a, :mnesia, :wait_for_tables, [ExampleStore, 5_000])
 
       tables = Cluster.call(node_a, :mnesia, :system_info, [:tables])
 
@@ -111,13 +110,12 @@ defmodule MnesiacTest do
 
   scenario "single node test with mnesiac supervisor/2", @single_named_opts do
     node_setup do
-      {:ok, _pid} = Mnesiac.Supervisor.start_link([[[node()], [name: Mnesiac.SupervisorSingleTest]]])
+      {:ok, _pid} = Mnesiac.Supervisor.start_link([[node()], [name: Mnesiac.SupervisorSingleTest]])
+      :ok = :mnesia.wait_for_tables([ExampleStore], 5_000)
     end
 
     test "tables exist", %{cluster: cluster} do
       [node_a] = Cluster.members(cluster)
-
-      Cluster.call(node_a, :mnesia, :wait_for_tables, [ExampleStore, 5_000])
 
       tables = Cluster.call(node_a, :mnesia, :system_info, [:tables])
 
@@ -152,15 +150,9 @@ defmodule MnesiacTest do
   end
 
   scenario "distributed test", @distributed_opts do
-    setup %{cluster: cluster} do
-      nodes = Cluster.members(cluster)
-
-      Cluster.each(cluster, fn ->
-        {:ok, _pid} = Mnesiac.Supervisor.start_link([[nodes]])
-        :ok = :mnesia.wait_for_tables([ExampleStore], 5_000)
-      end)
-
-      %{cluster: cluster}
+    node_setup do
+      {:ok, _pid} = Mnesiac.Supervisor.start_link([[:"test03@127.0.0.1", :"test04@127.0.0.1"]])
+      :ok = :mnesia.wait_for_tables([ExampleStore], 5_000)
     end
 
     test "tables exist", %{cluster: cluster} do

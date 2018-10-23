@@ -10,8 +10,8 @@ defmodule Mnesiac do
   """
   def init_mnesia(nodes) do
     nodes =
-      Enum.filter(List.delete(Node.list(), Node.self()), fn node ->
-        node in List.delete(List.flatten(nodes), Node.self())
+      Enum.filter(Node.list(), fn node ->
+        node in List.flatten(nodes)
       end)
 
     case nodes do
@@ -29,13 +29,13 @@ defmodule Mnesiac do
   def start do
     with :ok <- ensure_dir_exists(),
          :ok <- ensure_started(),
-         :ok <- Store.copy_schema(Node.self()),
+         :ok <- Store.copy_schema(node()),
          :ok <- Store.init_tables(),
          :ok <- Store.ensure_tables_loaded() do
       :ok
     else
       {:error, reason} ->
-        Logger.debug(fn -> "[mnesiac:#{Node.self()}] #{reason}" end)
+        Logger.debug(fn -> "[mnesiac:#{node()}] #{reason}" end)
         {:error, reason}
     end
   end
@@ -49,13 +49,13 @@ defmodule Mnesiac do
          :ok <- Store.delete_schema(),
          :ok <- ensure_started(),
          :ok <- connect(cluster_node),
-         :ok <- Store.copy_schema(Node.self()),
+         :ok <- Store.copy_schema(node()),
          :ok <- Store.copy_tables(),
          :ok <- Store.ensure_tables_loaded() do
       :ok
     else
       {:error, reason} ->
-        Logger.debug(fn -> "[mnesiac:#{Node.self()}] #{reason}" end)
+        Logger.debug(fn -> "[mnesiac:#{node()}] #{reason}" end)
         {:error, reason}
     end
   end
