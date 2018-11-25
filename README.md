@@ -29,7 +29,7 @@ config :mnesiac,
 
 Then add `mnesiac` to your supervision tree:
 
-With `libcluster` using the `Cluster.Strategy.Epmd` strategy:
+- With `libcluster` using the `Cluster.Strategy.Epmd` strategy:
 
 ```elixir
   ...
@@ -46,7 +46,7 @@ With `libcluster` using the `Cluster.Strategy.Epmd` strategy:
   ...
 ```
 
-Without `libcluster`:
+- Without `libcluster`:
 
 ```elixir
   ...

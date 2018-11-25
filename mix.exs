@@ -65,7 +65,7 @@ defmodule Mnesiac.MixProject do
   defp deps do
     [
       {:libcluster, "~> 3.0", optional: true},
-      {:credo, "~> 0.10", only: [:dev], runtime: false},
+      {:credo, "~> 1.0", only: [:dev], runtime: false},
       {:dialyxir, "~> 1.0.0-rc", only: [:dev], runtime: false},
       {:ex_doc, "~> 0.19", only: [:dev], runtime: false},
       {:ex_unit_clustered_case, "~> 0.3", only: [:dev, :test]},
